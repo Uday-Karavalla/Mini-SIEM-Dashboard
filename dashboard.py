@@ -1,0 +1,21 @@
+from flask import Flask, render_template
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+
+    conn = sqlite3.connect('alerts.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM alerts")
+
+    alerts = cursor.fetchall()
+
+    conn.close()
+
+    return render_template("dashboard.html", alerts=alerts)
+
+if __name__ == '__main__':
+    app.run(debug=True)
