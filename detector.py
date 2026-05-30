@@ -15,6 +15,11 @@ for log in logs:
 
     if event == "LOGIN_FAILED":
         failed_attempts[ip] = failed_attempts.get(ip, 0) + 1
+if event == "PORT_SCAN":
+
+    print("ALERT!")
+    print("Port Scan Detected")
+    print("Source IP:", ip)
 
 conn = sqlite3.connect("alerts.db")
 cursor = conn.cursor()
